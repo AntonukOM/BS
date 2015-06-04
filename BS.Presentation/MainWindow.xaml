@@ -1,0 +1,13 @@
+﻿<Window x:Class="BS.Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:view="clr-namespace:BS.Presentation.Views"
+        Title="MainWindow" Height="350" Width="525"
+        Loaded="Window_Loaded">
+    <StackPanel>
+            <ComboBox HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="250" 
+                      Name="comboBox" SelectionChanged="ComboBox_SelectionChanged"/>    
+        <view:CatalogUC x:Name="vwCatalog" />
+        <Button Width="150" Content="Додати товар" Click="Button_Click" HorizontalAlignment="Left" Margin="10"/>
+    </StackPanel>
+</Window>

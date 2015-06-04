@@ -1,0 +1,953 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ShopDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" />
+          <Property Name="ParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="512" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="InputOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="Cost" Type="numeric" Precision="18" Scale="4" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InputOrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InputOrderId" Type="int" Nullable="false" />
+          <Property Name="PackageId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="UnitCost" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Measure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OutputOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerId" Type="int" Nullable="false" />
+          <Property Name="CreationTime" Type="datetime" Nullable="false" />
+          <Property Name="Cost" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OutputOrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OutputOrderId" Type="int" Nullable="false" />
+          <Property Name="PackageId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="UnitCost" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="int" Nullable="false" />
+          <Property Name="VolumeMeasureId" Type="int" Nullable="false" />
+          <Property Name="MeasureId" Type="int" Nullable="false" />
+          <Property Name="Volume" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PackageId" Type="int" Nullable="false" />
+          <Property Name="UnitCost" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PriceTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" />
+          <Property Name="Address" Type="nvarchar" MaxLength="512" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="ProducerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="WarehouseItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WarehouseId" Type="int" Nullable="false" />
+          <Property Name="PackageId" Type="int" Nullable="false" />
+          <Property Name="Quantity" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_category_parentId_id">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inputOrder_customerId_customer_id">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="InputOrder" Type="Self.InputOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InputOrder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inputOrderItem_inputOrderId_inputOrder_Id">
+          <End Role="InputOrder" Type="Self.InputOrder" Multiplicity="1" />
+          <End Role="InputOrderItem" Type="Self.InputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InputOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InputOrderItem">
+              <PropertyRef Name="InputOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inputOrderItem_packageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="InputOrderItem" Type="Self.InputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InputOrderItem">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_outputOrder_customerId_customer_id">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="OutputOrder" Type="Self.OutputOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OutputOrder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_outputOrderItem_outputOrderId_outputOrder_id">
+          <End Role="OutputOrder" Type="Self.OutputOrder" Multiplicity="1" />
+          <End Role="OutputOrderItem" Type="Self.OutputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutputOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OutputOrderItem">
+              <PropertyRef Name="OutputOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_outputOrderItem_packageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="OutputOrderItem" Type="Self.OutputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OutputOrderItem">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_package_measureId_measure_id">
+          <End Role="Measure" Type="Self.Measure" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="MeasureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_package_productId_product_id">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_packege_volumeMeasureId_measure_id">
+          <End Role="Measure" Type="Self.Measure" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="VolumeMeasureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_price_productPackageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="Price" Type="Self.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_categoryId_category_id">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_producerId_producer_id">
+          <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProducerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_warehouseItem_packageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="WarehouseItem" Type="Self.WarehouseItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseItem">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_warehouseItem_warehouseId_warehouse_id">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="WarehouseItem" Type="Self.WarehouseItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseItem">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopDBModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InputOrder" EntityType="Self.InputOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InputOrderItem" EntityType="Self.InputOrderItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Measure" EntityType="Self.Measure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutputOrder" EntityType="Self.OutputOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OutputOrderItem" EntityType="Self.OutputOrderItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Package" EntityType="Self.Package" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Price" EntityType="Self.Price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Warehouse" EntityType="Self.Warehouse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WarehouseItem" EntityType="Self.WarehouseItem" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_category_parentId_id" Association="Self.fk_category_parentId_id">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inputOrder_customerId_customer_id" Association="Self.fk_inputOrder_customerId_customer_id">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="InputOrder" EntitySet="InputOrder" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inputOrderItem_inputOrderId_inputOrder_Id" Association="Self.fk_inputOrderItem_inputOrderId_inputOrder_Id">
+            <End Role="InputOrder" EntitySet="InputOrder" />
+            <End Role="InputOrderItem" EntitySet="InputOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inputOrderItem_packageId_package_id" Association="Self.fk_inputOrderItem_packageId_package_id">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="InputOrderItem" EntitySet="InputOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_outputOrder_customerId_customer_id" Association="Self.fk_outputOrder_customerId_customer_id">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="OutputOrder" EntitySet="OutputOrder" />
+          </AssociationSet>
+          <AssociationSet Name="fk_outputOrderItem_outputOrderId_outputOrder_id" Association="Self.fk_outputOrderItem_outputOrderId_outputOrder_id">
+            <End Role="OutputOrder" EntitySet="OutputOrder" />
+            <End Role="OutputOrderItem" EntitySet="OutputOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_outputOrderItem_packageId_package_id" Association="Self.fk_outputOrderItem_packageId_package_id">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="OutputOrderItem" EntitySet="OutputOrderItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_package_measureId_measure_id" Association="Self.fk_package_measureId_measure_id">
+            <End Role="Measure" EntitySet="Measure" />
+            <End Role="Package" EntitySet="Package" />
+          </AssociationSet>
+          <AssociationSet Name="fk_package_productId_product_id" Association="Self.fk_package_productId_product_id">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Package" EntitySet="Package" />
+          </AssociationSet>
+          <AssociationSet Name="fk_packege_volumeMeasureId_measure_id" Association="Self.fk_packege_volumeMeasureId_measure_id">
+            <End Role="Measure" EntitySet="Measure" />
+            <End Role="Package" EntitySet="Package" />
+          </AssociationSet>
+          <AssociationSet Name="fk_price_productPackageId_package_id" Association="Self.fk_price_productPackageId_package_id">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="Price" EntitySet="Price" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_categoryId_category_id" Association="Self.fk_product_categoryId_category_id">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_producerId_producer_id" Association="Self.fk_product_producerId_producer_id">
+            <End Role="Producer" EntitySet="Producer" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="fk_warehouseItem_packageId_package_id" Association="Self.fk_warehouseItem_packageId_package_id">
+            <End Role="Package" EntitySet="Package" />
+            <End Role="WarehouseItem" EntitySet="WarehouseItem" />
+          </AssociationSet>
+          <AssociationSet Name="fk_warehouseItem_warehouseId_warehouse_id" Association="Self.fk_warehouseItem_warehouseId_warehouse_id">
+            <End Role="Warehouse" EntitySet="Warehouse" />
+            <End Role="WarehouseItem" EntitySet="WarehouseItem" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ParentId" Type="Int32" />
+          <NavigationProperty Name="Category1" Relationship="Self.fk_category_parentId_id" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="Self.fk_category_parentId_id" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="Products" Relationship="Self.fk_product_categoryId_category_id" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InputOrders" Relationship="Self.fk_inputOrder_customerId_customer_id" FromRole="Customer" ToRole="InputOrder" />
+          <NavigationProperty Name="OutputOrders" Relationship="Self.fk_outputOrder_customerId_customer_id" FromRole="Customer" ToRole="OutputOrder" />
+        </EntityType>
+        <EntityType Name="InputOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.fk_inputOrder_customerId_customer_id" FromRole="InputOrder" ToRole="Customer" />
+          <NavigationProperty Name="InputOrderItems" Relationship="Self.fk_inputOrderItem_inputOrderId_inputOrder_Id" FromRole="InputOrder" ToRole="InputOrderItem" />
+        </EntityType>
+        <EntityType Name="InputOrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InputOrderId" Type="Int32" Nullable="false" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <NavigationProperty Name="InputOrder" Relationship="Self.fk_inputOrderItem_inputOrderId_inputOrder_Id" FromRole="InputOrderItem" ToRole="InputOrder" />
+          <NavigationProperty Name="Package" Relationship="Self.fk_inputOrderItem_packageId_package_id" FromRole="InputOrderItem" ToRole="Package" />
+        </EntityType>
+        <EntityType Name="Measure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShortName" Type="String" MaxLength="16" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Packages" Relationship="Self.fk_package_measureId_measure_id" FromRole="Measure" ToRole="Package" />
+          <NavigationProperty Name="Packages1" Relationship="Self.fk_packege_volumeMeasureId_measure_id" FromRole="Measure" ToRole="Package" />
+        </EntityType>
+        <EntityType Name="OutputOrder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="CreationTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Self.fk_outputOrder_customerId_customer_id" FromRole="OutputOrder" ToRole="Customer" />
+          <NavigationProperty Name="OutputOrderItems" Relationship="Self.fk_outputOrderItem_outputOrderId_outputOrder_id" FromRole="OutputOrder" ToRole="OutputOrderItem" />
+        </EntityType>
+        <EntityType Name="OutputOrderItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OutputOrderId" Type="Int32" Nullable="false" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <NavigationProperty Name="OutputOrder" Relationship="Self.fk_outputOrderItem_outputOrderId_outputOrder_id" FromRole="OutputOrderItem" ToRole="OutputOrder" />
+          <NavigationProperty Name="Package" Relationship="Self.fk_outputOrderItem_packageId_package_id" FromRole="OutputOrderItem" ToRole="Package" />
+        </EntityType>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="VolumeMeasureId" Type="Int32" Nullable="false" />
+          <Property Name="MeasureId" Type="Int32" Nullable="false" />
+          <Property Name="Volume" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <NavigationProperty Name="InputOrderItems" Relationship="Self.fk_inputOrderItem_packageId_package_id" FromRole="Package" ToRole="InputOrderItem" />
+          <NavigationProperty Name="Measure" Relationship="Self.fk_package_measureId_measure_id" FromRole="Package" ToRole="Measure" />
+          <NavigationProperty Name="Measure1" Relationship="Self.fk_packege_volumeMeasureId_measure_id" FromRole="Package" ToRole="Measure" />
+          <NavigationProperty Name="OutputOrderItems" Relationship="Self.fk_outputOrderItem_packageId_package_id" FromRole="Package" ToRole="OutputOrderItem" />
+          <NavigationProperty Name="Product" Relationship="Self.fk_package_productId_product_id" FromRole="Package" ToRole="Product" />
+          <NavigationProperty Name="Prices" Relationship="Self.fk_price_productPackageId_package_id" FromRole="Package" ToRole="Price" />
+          <NavigationProperty Name="WarehouseItems" Relationship="Self.fk_warehouseItem_packageId_package_id" FromRole="Package" ToRole="WarehouseItem" />
+        </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <Property Name="UnitCost" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="PriceTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Package" Relationship="Self.fk_price_productPackageId_package_id" FromRole="Price" ToRole="Package" />
+        </EntityType>
+        <EntityType Name="Producer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="Self.fk_product_producerId_producer_id" FromRole="Producer" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="ProducerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.fk_product_categoryId_category_id" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Packages" Relationship="Self.fk_package_productId_product_id" FromRole="Product" ToRole="Package" />
+          <NavigationProperty Name="Producer" Relationship="Self.fk_product_producerId_producer_id" FromRole="Product" ToRole="Producer" />
+        </EntityType>
+        <EntityType Name="Warehouse">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="WarehouseItems" Relationship="Self.fk_warehouseItem_warehouseId_warehouse_id" FromRole="Warehouse" ToRole="WarehouseItem" />
+        </EntityType>
+        <EntityType Name="WarehouseItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WarehouseId" Type="Int32" Nullable="false" />
+          <Property Name="PackageId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Package" Relationship="Self.fk_warehouseItem_packageId_package_id" FromRole="WarehouseItem" ToRole="Package" />
+          <NavigationProperty Name="Warehouse" Relationship="Self.fk_warehouseItem_warehouseId_warehouse_id" FromRole="WarehouseItem" ToRole="Warehouse" />
+        </EntityType>
+        <Association Name="fk_category_parentId_id">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_categoryId_category_id">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inputOrder_customerId_customer_id">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="InputOrder" Type="Self.InputOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InputOrder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_outputOrder_customerId_customer_id">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="OutputOrder" Type="Self.OutputOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OutputOrder">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inputOrderItem_inputOrderId_inputOrder_Id">
+          <End Role="InputOrder" Type="Self.InputOrder" Multiplicity="1" />
+          <End Role="InputOrderItem" Type="Self.InputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="InputOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InputOrderItem">
+              <PropertyRef Name="InputOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_inputOrderItem_packageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="InputOrderItem" Type="Self.InputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InputOrderItem">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_package_measureId_measure_id">
+          <End Role="Measure" Type="Self.Measure" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="MeasureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_packege_volumeMeasureId_measure_id">
+          <End Role="Measure" Type="Self.Measure" Multiplicity="1" />
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Measure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="VolumeMeasureId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_outputOrderItem_outputOrderId_outputOrder_id">
+          <End Role="OutputOrder" Type="Self.OutputOrder" Multiplicity="1" />
+          <End Role="OutputOrderItem" Type="Self.OutputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OutputOrder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OutputOrderItem">
+              <PropertyRef Name="OutputOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_outputOrderItem_packageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="OutputOrderItem" Type="Self.OutputOrderItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OutputOrderItem">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_package_productId_product_id">
+          <End Role="Product" Type="Self.Product" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Package" Type="Self.Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_price_productPackageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="Price" Type="Self.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_warehouseItem_packageId_package_id">
+          <End Role="Package" Type="Self.Package" Multiplicity="1" />
+          <End Role="WarehouseItem" Type="Self.WarehouseItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseItem">
+              <PropertyRef Name="PackageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_product_producerId_producer_id">
+          <End Role="Producer" Type="Self.Producer" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProducerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_warehouseItem_warehouseId_warehouse_id">
+          <End Role="Warehouse" Type="Self.Warehouse" Multiplicity="1" />
+          <End Role="WarehouseItem" Type="Self.WarehouseItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Warehouse">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WarehouseItem">
+              <PropertyRef Name="WarehouseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="InputOrders" EntityType="Self.InputOrder" />
+          <EntitySet Name="InputOrderItems" EntityType="Self.InputOrderItem" />
+          <EntitySet Name="Measures" EntityType="Self.Measure" />
+          <EntitySet Name="OutputOrders" EntityType="Self.OutputOrder" />
+          <EntitySet Name="OutputOrderItems" EntityType="Self.OutputOrderItem" />
+          <EntitySet Name="Packages" EntityType="Self.Package" />
+          <EntitySet Name="Prices" EntityType="Self.Price" />
+          <EntitySet Name="Producers" EntityType="Self.Producer" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Warehouses" EntityType="Self.Warehouse" />
+          <EntitySet Name="WarehouseItems" EntityType="Self.WarehouseItem" />
+          <AssociationSet Name="fk_category_parentId_id" Association="Self.fk_category_parentId_id">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category1" EntitySet="Categories" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_categoryId_category_id" Association="Self.fk_product_categoryId_category_id">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inputOrder_customerId_customer_id" Association="Self.fk_inputOrder_customerId_customer_id">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="InputOrder" EntitySet="InputOrders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_outputOrder_customerId_customer_id" Association="Self.fk_outputOrder_customerId_customer_id">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="OutputOrder" EntitySet="OutputOrders" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inputOrderItem_inputOrderId_inputOrder_Id" Association="Self.fk_inputOrderItem_inputOrderId_inputOrder_Id">
+            <End Role="InputOrder" EntitySet="InputOrders" />
+            <End Role="InputOrderItem" EntitySet="InputOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_inputOrderItem_packageId_package_id" Association="Self.fk_inputOrderItem_packageId_package_id">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="InputOrderItem" EntitySet="InputOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_package_measureId_measure_id" Association="Self.fk_package_measureId_measure_id">
+            <End Role="Measure" EntitySet="Measures" />
+            <End Role="Package" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="fk_packege_volumeMeasureId_measure_id" Association="Self.fk_packege_volumeMeasureId_measure_id">
+            <End Role="Measure" EntitySet="Measures" />
+            <End Role="Package" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="fk_outputOrderItem_outputOrderId_outputOrder_id" Association="Self.fk_outputOrderItem_outputOrderId_outputOrder_id">
+            <End Role="OutputOrder" EntitySet="OutputOrders" />
+            <End Role="OutputOrderItem" EntitySet="OutputOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_outputOrderItem_packageId_package_id" Association="Self.fk_outputOrderItem_packageId_package_id">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="OutputOrderItem" EntitySet="OutputOrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_package_productId_product_id" Association="Self.fk_package_productId_product_id">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Package" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="fk_price_productPackageId_package_id" Association="Self.fk_price_productPackageId_package_id">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="fk_warehouseItem_packageId_package_id" Association="Self.fk_warehouseItem_packageId_package_id">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="WarehouseItem" EntitySet="WarehouseItems" />
+          </AssociationSet>
+          <AssociationSet Name="fk_product_producerId_producer_id" Association="Self.fk_product_producerId_producer_id">
+            <End Role="Producer" EntitySet="Producers" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="fk_warehouseItem_warehouseId_warehouse_id" Association="Self.fk_warehouseItem_warehouseId_warehouse_id">
+            <End Role="Warehouse" EntitySet="Warehouses" />
+            <End Role="WarehouseItem" EntitySet="WarehouseItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopDBModelStoreContainer" CdmEntityContainer="ShopDBEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ShopDBModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="ShopDBModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InputOrders">
+            <EntityTypeMapping TypeName="ShopDBModel.InputOrder">
+              <MappingFragment StoreEntitySet="InputOrder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InputOrderItems">
+            <EntityTypeMapping TypeName="ShopDBModel.InputOrderItem">
+              <MappingFragment StoreEntitySet="InputOrderItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="InputOrderId" ColumnName="InputOrderId" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Measures">
+            <EntityTypeMapping TypeName="ShopDBModel.Measure">
+              <MappingFragment StoreEntitySet="Measure">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutputOrders">
+            <EntityTypeMapping TypeName="ShopDBModel.OutputOrder">
+              <MappingFragment StoreEntitySet="OutputOrder">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="CreationTime" ColumnName="CreationTime" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutputOrderItems">
+            <EntityTypeMapping TypeName="ShopDBModel.OutputOrderItem">
+              <MappingFragment StoreEntitySet="OutputOrderItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="OutputOrderId" ColumnName="OutputOrderId" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="ShopDBModel.Package">
+              <MappingFragment StoreEntitySet="Package">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="VolumeMeasureId" ColumnName="VolumeMeasureId" />
+                <ScalarProperty Name="MeasureId" ColumnName="MeasureId" />
+                <ScalarProperty Name="Volume" ColumnName="Volume" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prices">
+            <EntityTypeMapping TypeName="ShopDBModel.Price">
+              <MappingFragment StoreEntitySet="Price">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="UnitCost" ColumnName="UnitCost" />
+                <ScalarProperty Name="PriceTime" ColumnName="PriceTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producers">
+            <EntityTypeMapping TypeName="ShopDBModel.Producer">
+              <MappingFragment StoreEntitySet="Producer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="ShopDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="ProducerId" ColumnName="ProducerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Warehouses">
+            <EntityTypeMapping TypeName="ShopDBModel.Warehouse">
+              <MappingFragment StoreEntitySet="Warehouse">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WarehouseItems">
+            <EntityTypeMapping TypeName="ShopDBModel.WarehouseItem">
+              <MappingFragment StoreEntitySet="WarehouseItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="WarehouseId" ColumnName="WarehouseId" />
+                <ScalarProperty Name="PackageId" ColumnName="PackageId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
