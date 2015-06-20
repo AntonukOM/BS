@@ -61,9 +61,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="ViewModels\CatalogViewModel.cs" />
+    <Compile Include="ViewModels\CategoryViewModel.cs" />
     <Compile Include="Views\CatalogUC.xaml.cs">
       <DependentUpon>CatalogUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WindowAddPackage.xaml.cs">
+      <DependentUpon>WindowAddPackage.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +83,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CatalogUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WindowAddPackage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

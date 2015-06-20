@@ -5,9 +5,14 @@
         Title="MainWindow" Height="350" Width="525"
         Loaded="Window_Loaded">
     <StackPanel>
+        <Grid>
             <ComboBox HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="250" 
-                      Name="comboBox" SelectionChanged="ComboBox_SelectionChanged"/>    
-        <view:CatalogUC x:Name="vwCatalog" />
-        <Button Width="150" Content="Додати товар" Click="Button_Click" HorizontalAlignment="Left" Margin="10"/>
+                      Name="comboBox" SelectionChanged="ComboBox_SelectionChanged"/>
+            <Button Width="150" Margin="10" HorizontalAlignment="Right" Content="Додати товар" Name="btnAddGood" Click="btnAddGood_Click"/>
+        </Grid>  
+        <view:CatalogUC x:Name="vwCatalog"/>
+        <Grid>
+            <Button Content="Вихід" Width="150" HorizontalAlignment="Right" Margin="10" Name="btnClose" Click="btnClose_Click"/>
+        </Grid>
     </StackPanel>
 </Window>

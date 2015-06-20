@@ -16,14 +16,14 @@ namespace BS.Presentation
     {
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
         
         private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        {            
             string cs = ConfigurationManager.ConnectionStrings["ShopDBEntities"].ConnectionString;
-            try            {
-
+            try            
+            {
                 ICategoryManager categoryManager = new CategoryManager(cs);
                 IMeasureManager measureManager = new MeasureManager(cs);
                 IPackageManager packageManager = new PackageManager(cs);
@@ -40,10 +40,10 @@ namespace BS.Presentation
                          producerManager, 
                          productManager
                         );
-
+                
                 vwCatalog.dgCatalogUC.DataContext = catalogViewModel.Catalog;
                 comboBox.ItemsSource = catalogViewModel.Categories;
-                comboBox.SelectedItem = catalogViewModel.Categories.LastOrDefault(x => x == "Всі категорії");
+                comboBox.SelectedItem = catalogViewModel.Categories.FirstOrDefault(x => x == "Всі категорії");
             }
             catch (Exception ex)
             {
@@ -76,7 +76,7 @@ namespace BS.Presentation
                 if (comboBox.SelectedIndex != comboBox.Items.Count - 1)
                 {
                     vwCatalog.dgCatalogUC.DataContext = catalogViewModel.CatalogFilterByCategory(comboBox.SelectedItem.ToString());
-                }
+                }                    
                 else
                 {
                     vwCatalog.dgCatalogUC.DataContext = catalogViewModel.Catalog;
@@ -88,9 +88,17 @@ namespace BS.Presentation
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
+        }
 
+        private void btnAddGood_Click(object sender, RoutedEventArgs e)
+        {
+            Views.WindowAddPackage wnd = new Views.WindowAddPackage();
+            wnd.Top = this.Top + 40;
+            wnd.Left = this.Left + 40;
+            wnd.ShowDialog();
         }
     }
 }

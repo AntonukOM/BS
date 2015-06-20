@@ -3,6 +3,7 @@ using BS.Presentation.Models;
 using BS.Entities;
 using System.Collections.Generic;
 using System.Linq;
+
 namespace BS.Presentation.ViewModels
 {
     public class CatalogViewModel
@@ -96,8 +97,7 @@ namespace BS.Presentation.ViewModels
                 return _items;
             }
         }
-
-
+        
         static public List<CatalogModel> CreateCatalogModelFilterByCategory(
                      IEnumerable<Category> categories,
                      IEnumerable<Measure> measures,
