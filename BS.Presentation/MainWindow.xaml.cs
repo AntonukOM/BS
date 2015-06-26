@@ -95,7 +95,7 @@ namespace BS.Presentation
 
         private void btnAddGood_Click(object sender, RoutedEventArgs e)
         {
-            Views.WindowAddPackage wnd = new Views.WindowAddPackage();
+            WindowAddPackage wnd = new WindowAddPackage();
             wnd.Top = this.Top + 40;
             wnd.Left = this.Left + 40;
             wnd.ShowDialog();

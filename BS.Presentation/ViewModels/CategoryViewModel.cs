@@ -13,6 +13,8 @@ namespace BS.Presentation.ViewModels
     {
         private readonly ICategoryManager _categoryManager;
         List<CategoryModel> _items = null;
+        List<CategoryModel> _subItems = null;
+
         public CategoryViewModel(ICategoryManager categoryManager)
         {
             _categoryManager = categoryManager;
@@ -23,6 +25,7 @@ namespace BS.Presentation.ViewModels
             List<CategoryModel> listCategory = new List<CategoryModel>();
             var res = from ctx in categories
                       where ctx.ParentId == null
+                      orderby ctx.Name ascending
                       select new
                       {
                           Id = ctx.Id,
@@ -35,7 +38,7 @@ namespace BS.Presentation.ViewModels
             }
             return listCategory;
         }
-
+             
         public IEnumerable<CategoryModel> Category
         {
             get
@@ -50,7 +53,7 @@ namespace BS.Presentation.ViewModels
                 return _items;
             }
         }
-
+        
         public List<string> Categories
         {
             get
@@ -63,6 +66,67 @@ namespace BS.Presentation.ViewModels
                 return list;
             }
         }
+
+
+        //subctg
+
+        private static int GetId(IEnumerable<Category> subcategories, string mainCtgName)
+        {
+            var i = from c in subcategories where c.Name == mainCtgName select c.Id;
+            int[] a = i.ToArray();
+            string str = a[0].ToString();
+            return Convert.ToInt32(str);
+        }
+
+        static public List<CategoryModel> CreateSubcategoryModel(IEnumerable<Category> subcategories, string mainCtgName)
+        {            
+            List<CategoryModel> listCategory = new List<CategoryModel>();
+            int id = GetId(subcategories, mainCtgName);            
+
+            var res = from ctx in subcategories
+                      where ctx.ParentId == id/*(int)(from c in subcategories
+                                                            where c.Name == mainCtgName
+                                                            select c.Id)*/
+                      orderby ctx.Name ascending
+                      select new
+                      {
+                          Id = ctx.Id,
+                          Name = ctx.Name
+                      };
+            foreach (var c in res)
+            {
+                listCategory.Add(
+                    new CategoryModel(c.Id, c.Name));
+            }
+            return listCategory;
+        }
+
+        public IEnumerable<CategoryModel> Subcategory(string filter)
+        {            
+                if (_subItems == null)
+                {
+                    _subItems = new List<CategoryModel>();
+                    _subItems = CreateSubcategoryModel(
+                            _categoryManager.GetAll(),
+                            filter
+                            );
+                }
+                return _subItems;            
+        }
+
+        public List<string> Subcategories
+        {
+            get
+            {
+                List<string> list = new List<string>();
+                foreach (var i in _subItems)
+                {
+                    list.Add(i.ToString());
+                }
+                return list;
+            }
+        }
+
     }
 }
 

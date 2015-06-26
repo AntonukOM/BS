@@ -57,7 +57,7 @@ namespace BS.Presentation.ViewModels
                 join vm in measures
                     on pg.VolumeMeasureId equals vm.Id
                 join pr in prices
-                    on pg.Id equals pr.PackageId
+                    on pg.Id equals pr.PackageId                
                 select new
                 {
                     Id = pg.Id,

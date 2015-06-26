@@ -11,7 +11,7 @@ using System.Windows.Controls;
 using System.Linq;
 using System.Data.SqlClient;
 
-namespace BS.Presentation.Views
+namespace BS.Presentation
 {
     /// <summary>
     /// Interaction logic for WindowAddPackage.xaml
@@ -25,7 +25,13 @@ namespace BS.Presentation.Views
         }
 
         private void cbxCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {               
+        {
+            ICategoryManager categoryManager = new CategoryManager(cs);
+            CategoryViewModel categoryViewModel = new CategoryViewModel(categoryManager);           
+
+            cbxSubCategoty.DataContext = categoryViewModel.Subcategory(cbxCategory.SelectedItem.ToString());
+            cbxSubCategoty.ItemsSource = categoryViewModel.Subcategories;
+            cbxSubCategoty.SelectedItem = categoryViewModel.Subcategories.FirstOrDefault();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -40,15 +46,16 @@ namespace BS.Presentation.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            string cs = ConfigurationManager.ConnectionStrings["ShopDBEntities"].ConnectionString;
-            ICategoryManager categoryManager = new CategoryManager(cs);
-        
-            CategoryViewModel categoryViewModel =
-                   new CategoryViewModel(
-                        categoryManager);
+            ICategoryManager categoryManager = new CategoryManager(cs);        
+            CategoryViewModel categoryViewModel = new CategoryViewModel(categoryManager);
+
             cbxCategory.DataContext = categoryViewModel.Category;
             cbxCategory.ItemsSource = categoryViewModel.Categories;
+            cbxCategory.SelectedItem = categoryViewModel.Categories.FirstOrDefault();
 
+            cbxSubCategoty.DataContext = categoryViewModel.Subcategory(cbxCategory.SelectedItem.ToString());
+            cbxSubCategoty.ItemsSource = categoryViewModel.Subcategories;
+            cbxSubCategoty.SelectedItem = categoryViewModel.Subcategories.FirstOrDefault();
         }
     }
 }
