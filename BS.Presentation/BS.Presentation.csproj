@@ -62,8 +62,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\MeasureModel.cs" />
+    <Compile Include="Models\ProducerModel.cs" />
     <Compile Include="ViewModels\CatalogViewModel.cs" />
     <Compile Include="ViewModels\CategoryViewModel.cs" />
+    <Compile Include="ViewModels\MeasureViewModel.cs" />
+    <Compile Include="ViewModels\ProducerViewModel.cs" />
     <Compile Include="Views\CatalogUC.xaml.cs">
       <DependentUpon>CatalogUC.xaml</DependentUpon>
     </Compile>

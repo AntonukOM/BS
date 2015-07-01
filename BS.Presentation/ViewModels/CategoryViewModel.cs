@@ -12,8 +12,8 @@ namespace BS.Presentation.ViewModels
     public class CategoryViewModel
     {
         private readonly ICategoryManager _categoryManager;
-        List<CategoryModel> _items = null;
-        List<CategoryModel> _subItems = null;
+        private List<CategoryModel> _items = null;
+        private List<CategoryModel> _subItems = null;
 
         public CategoryViewModel(ICategoryManager categoryManager)
         {
@@ -74,8 +74,7 @@ namespace BS.Presentation.ViewModels
         {
             var i = from c in subcategories where c.Name == mainCtgName select c.Id;
             int[] a = i.ToArray();
-            string str = a[0].ToString();
-            return Convert.ToInt32(str);
+            return a[0];            
         }
 
         static public List<CategoryModel> CreateSubcategoryModel(IEnumerable<Category> subcategories, string mainCtgName)

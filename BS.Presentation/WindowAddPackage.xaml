@@ -4,7 +4,7 @@
         Title="Додати" Height="370" Width="300"  ResizeMode="NoResize" WindowStyle="None"
         AllowsTransparency="True" Background="Transparent" Loaded="Window_Loaded">
     <Grid>
-        <Border BorderThickness="2" CornerRadius="15" Background="WhiteSmoke" BorderBrush="Gray" />
+        <Border BorderThickness="2" CornerRadius="15" Background="WhiteSmoke" BorderBrush="Gray" Margin="0,0,0,10" />
         <Label FontSize="20" Content="New Package" VerticalAlignment="Top" Margin="10" Height="35" />
 
         <Label FontSize="12" Content="Категорія:" Margin="10,30,-10,288" Height="30"/>
@@ -16,22 +16,31 @@
         <Label FontSize="12" Content="Виробник:" Margin="10,140,-10,184" Height="30"/>
         <ComboBox Name="cbxProducer" Height="25" Margin="10,175,26,170" />
 
-        <Label FontSize="12" Content="Назва:" Margin="10,190,-10,128" Height="30"/>
-        <ComboBox Name="cbxProduct" Height="25" Margin="10,228,26,117" />
+        <Label FontSize="12" Content="Назва:" Margin="10,209,-10,133"/>
+        <TextBox Name="tbxProduct" Margin="60,210,26,134" />
 
-        <Label FontSize="12" Content="К-сть:" Margin="10,250,-10,72" Height="25"/>
-        <TextBox Name="tbxVolume" Width="45" Height="20" Margin="5,290,231,60" />
+        <Label FontSize="12" Content="К-сть:" Margin="10,249,-10,96" Height="25"/>
+        <TextBox Name="tbxVolume" Height="20" Margin="14,272,228,78" RenderTransformOrigin="0.5,0.5" >
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.281"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
 
-        <Label FontSize="12" Content="Од.вим.:" Margin="75,250,-10,72" Height="25"/>
-        <ComboBox Name="cbxMeasure" Width="55" Height="20" Margin="72,290,156,60" />
+        <Label FontSize="12" Content="Од.вим.:" Margin="84,249,-18,96" Height="25"/>
+        <ComboBox Name="cbxMeasure" Height="20" Margin="84,272,166,78" />
 
-        <Label FontSize="12" Content="Од.вим.т-ру:" Margin="150,250,-10,72" Height="25"/>
-        <ComboBox Name="cbxVolumeMeasure" Width="70" Height="20" Margin="155,290,69,60" />
+        <Label FontSize="12" Content="Од.вим.тов:" Margin="144,249,-80,96" Height="25"/>
+        <ComboBox Name="cbxVolumeMeasure" Height="20" Margin="150,272,82,78" RenderTransformOrigin="0.814,0.667" />
 
-        <Label FontSize="12" Content="Ціна:" Margin="240,250,-10,72" Height="25"/>
-        <TextBox Name="tbxPrice" Width="45" Height="20" Margin="245,290,10,60" />
+        <Label FontSize="12" Content="Ціна:" Margin="230,249,0,96" Height="25"/>
+        <TextBox Name="tbxPrice" Height="20" Margin="230,272,24,78" />
 
-        <Button Content="Ок" Width="75" Height="25" Margin="14,328,210,17" Name="btnAddPackege" Click="btnAddPackage_Click"/>
-        <Button Content="Відмінити" Width="75" Height="25" Margin="199,328,26,17" Name="btnCancel" Click="btnCancel_Click"/>
+        <Button Content="Ок" Width="75" Height="25" Margin="14,310,210,35" Name="btnAddPackege" Click="btnAddPackage_Click"/>
+        <Button Content="Відмінити" Width="75" Height="25" Margin="199,310,26,35" Name="btnCancel" Click="btnCancel_Click"/>
     </Grid>
 </Window>
